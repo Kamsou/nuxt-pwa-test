@@ -32,15 +32,14 @@ export default defineNuxtConfig({
     },
     workbox: {
       cleanupOutdatedCaches: true,
-      globPatterns: ['**/*.{js,css,html,ico,png,svg}'],
       navigateFallback: '/',
-      navigateFallbackDenylist: [/^\/_/, /\/[^/?]+\.[^/]+$/],
-    },
-    client: {
-      installPrompt: true,
+      globPatterns: ['**/*.{js,css,html,png,svg,ico}'],
+      globIgnores: ['**/node_modules/**/*'],
     },
     devOptions: {
       enabled: true,
+      suppressWarnings: true,
+      navigateFallbackAllowlist: [/^\/$/],
       type: 'module',
     },
   },

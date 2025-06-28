@@ -12,12 +12,12 @@
       </button>
     </div>
     
-    <div v-if="isPWA" style="margin-top: 1rem; padding: 1rem; background: #e8f5e8; border-radius: 0.5rem; color: #2d5a2d;">
+    <div v-if="isInstalled" style="margin-top: 1rem; padding: 1rem; background: #e8f5e8; border-radius: 0.5rem; color: #2d5a2d;">
       🚀 Vous naviguez dans l'application PWA ! Toutes les navigations restent dans l'app.
     </div>
   </div>
 </template>
 
 <script setup>
-const { isPWA } = usePWA()
+const { isInstalled } = process.client ? usePWA() : { isInstalled: ref(false) };
 </script>

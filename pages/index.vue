@@ -5,18 +5,26 @@
     
     <div style="margin: 2rem 0;">
       <button 
-        v-if="!isPWA && canInstall" 
-        @click="installPWA"
+        v-if="needRefresh" 
+        @click="updateServiceWorker()"
+        style="background: #ff6b35; color: white; border: none; padding: 1rem 2rem; border-radius: 0.5rem; cursor: pointer; font-size: 1rem; margin-right: 1rem;"
+      >
+        🔄 Mettre à jour l'app
+      </button>
+      
+      <button 
+        v-if="showInstallPrompt" 
+        @click="install()"
         style="background: #007acc; color: white; border: none; padding: 1rem 2rem; border-radius: 0.5rem; cursor: pointer; font-size: 1rem;"
       >
         📱 Installer l'application
       </button>
       
-      <div v-if="isPWA" style="padding: 1rem; background: #e8f5e8; border-radius: 0.5rem; color: #2d5a2d;">
+      <div v-if="isInstalled" style="padding: 1rem; background: #e8f5e8; border-radius: 0.5rem; color: #2d5a2d; margin-top: 1rem;">
         ✅ Application installée ! Vous naviguez en mode PWA.
       </div>
       
-      <div v-else-if="!canInstall" style="padding: 1rem; background: #f0f0f0; border-radius: 0.5rem; color: #666;">
+      <div v-else-if="!showInstallPrompt" style="padding: 1rem; background: #f0f0f0; border-radius: 0.5rem; color: #666; margin-top: 1rem;">
         💡 Pour installer l'application, utilisez le menu de votre navigateur ou ajoutez cette page à votre écran d'accueil.
       </div>
     </div>
@@ -33,34 +41,17 @@
 </template>
 
 <script setup>
-const { isPWA } = usePWA()
-const canInstall = ref(false)
-let deferredPrompt: any = null
-
-onMounted(() => {
-  window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault()
-    deferredPrompt = e
-    canInstall.value = true
-  })
-  
-  window.addEventListener('appinstalled', () => {
-    canInstall.value = false
-    deferredPrompt = null
-  })
-})
-
-const installPWA = async () => {
-  if (deferredPrompt) {
-    deferredPrompt.prompt()
-    const { outcome } = await deferredPrompt.userChoice
-    
-    if (outcome === 'accepted') {
-      console.log('PWA installée avec succès')
-    }
-    
-    deferredPrompt = null
-    canInstall.value = false
-  }
-}
+const { 
+  needRefresh, 
+  updateServiceWorker,
+  showInstallPrompt,
+  install,
+  isInstalled
+} = process.client ? usePWA() : {
+  needRefresh: ref(false),
+  updateServiceWorker: () => {},
+  showInstallPrompt: ref(false),
+  install: () => {},
+  isInstalled: ref(false)
+};
 </script>

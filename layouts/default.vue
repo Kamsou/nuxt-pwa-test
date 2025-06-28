@@ -15,7 +15,7 @@
           À propos
         </button>
       </nav>
-      <div v-if="isPWA" style="font-size: 0.8rem; margin-top: 0.5rem;">
+      <div v-if="isInstalled" style="font-size: 0.8rem; margin-top: 0.5rem;">
         🚀 Mode PWA activé
       </div>
     </header>
@@ -26,5 +26,5 @@
 </template>
 
 <script setup>
-const { isPWA } = usePWA()
+const { isInstalled } = process.client ? usePWA() : { isInstalled: ref(false) };
 </script>
