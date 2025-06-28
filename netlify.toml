@@ -1,6 +1,10 @@
 [build]
-command = "yarn generate"
+command = "./build.sh"
 publish = ".output/public"
+
+[build.environment]
+NODE_VERSION = "20"
+YARN_VERSION = "1.22.22"
 
 # Configuration PWA - Headers pour service worker
 [[headers]]
