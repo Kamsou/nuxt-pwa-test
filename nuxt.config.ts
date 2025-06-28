@@ -14,7 +14,7 @@ export default defineNuxtConfig({
       theme_color: '#ffffff',
       background_color: '#ffffff',
       display: 'standalone',
-      start_url: '/',
+      start_url: '/?source=pwa',
       scope: '/',
       orientation: 'portrait',
       icons: [
@@ -35,6 +35,15 @@ export default defineNuxtConfig({
       navigateFallback: '/',
       globPatterns: ['**/*.{js,css,html,png,svg,ico}'],
       globIgnores: ['**/node_modules/**/*'],
+      runtimeCaching: [
+        {
+          urlPattern: ({ request }) => request.mode === 'navigate',
+          handler: 'NetworkFirst',
+          options: {
+            cacheName: 'pages-cache',
+          },
+        },
+      ],
     },
     devOptions: {
       enabled: true,

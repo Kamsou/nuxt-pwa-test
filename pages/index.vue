@@ -31,7 +31,7 @@
     
     <div style="margin-top: 2rem;">
       <button 
-        @click="navigateTo('/about')"
+        @click="$router.push('/about')"
         style="background: #333; color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 0.25rem; cursor: pointer;"
       >
         Aller à la page À propos →
