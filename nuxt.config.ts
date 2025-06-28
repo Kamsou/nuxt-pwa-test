@@ -4,6 +4,7 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-05-15',
   devtools: { enabled: true },
   modules: ['@vite-pwa/nuxt'],
+  css: ['~/assets/css/pwa.css'],
   pwa: {
     registerType: 'autoUpdate',
     manifest: {
@@ -13,6 +14,9 @@ export default defineNuxtConfig({
       theme_color: '#ffffff',
       background_color: '#ffffff',
       display: 'standalone',
+      start_url: '/',
+      scope: '/',
+      orientation: 'portrait',
       icons: [
         {
           src: '/icon-192.png',
@@ -29,6 +33,15 @@ export default defineNuxtConfig({
     workbox: {
       cleanupOutdatedCaches: true,
       globPatterns: ['**/*.{js,css,html,ico,png,svg}'],
+      navigateFallback: '/',
+      navigateFallbackDenylist: [/^\/_/, /\/[^/?]+\.[^/]+$/],
+    },
+    client: {
+      installPrompt: true,
+    },
+    devOptions: {
+      enabled: true,
+      type: 'module',
     },
   },
 })

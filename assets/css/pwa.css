@@ -1,0 +1,66 @@
+/* Styles spécifiques pour le mode PWA */
+html.pwa-mode {
+  /* Masquer la barre d'adresse sur iOS */
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+html.pwa-mode body {
+  /* Empêcher le rebond sur iOS */
+  overscroll-behavior: none;
+}
+
+/* Support pour les écrans avec encoche (iPhone X+) */
+@supports (padding: max(0px)) {
+  html.pwa-mode {
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+  
+  html.pwa-mode header {
+    padding-top: calc(1rem + env(safe-area-inset-top));
+  }
+}
+
+/* Améliorer les transitions entre pages */
+.page-enter-active,
+.page-leave-active {
+  transition: opacity 0.2s ease-in-out;
+}
+
+.page-enter-from,
+.page-leave-to {
+  opacity: 0;
+}
+
+/* Style pour les boutons de navigation */
+button[data-pwa-nav] {
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  text-decoration: underline;
+  font-size: inherit;
+  font-family: inherit;
+}
+
+button[data-pwa-nav]:hover {
+  opacity: 0.8;
+}
+
+/* Indicateur PWA */
+.pwa-indicator {
+  position: fixed;
+  top: 0;
+  right: 0;
+  background: #4CAF50;
+  color: white;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.7rem;
+  border-radius: 0 0 0 0.25rem;
+  z-index: 1000;
+}
