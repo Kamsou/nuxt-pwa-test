@@ -1,0 +1,28 @@
+# Node modules
+node_modules/
+
+# Build output
+dist/
+.output/
+.nuxt/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Local env files
+.env
+.env.*.local
+
+# IDEs / OS
+.DS_Store
+.idea/
+.vscode/
+
+# Netlify cache
+.netlify/
+
+# Optional: lockfiles if you use only one tool
+# package-lock.json
+# yarn.lock
